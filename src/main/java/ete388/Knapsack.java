@@ -37,40 +37,24 @@ public class Knapsack {
     void calculateValue(List<int []> listOfItems) {
         //we need an arraylist otherwise the List items are immutable
         List<int[]> list = new ArrayList<>(listOfItems);
-
-        int capacity = 0;
-        int highestValue = 0;
-        int savedIndices =0;
-        int index =0;
-        int currentValue = 0;
-        int knapsackCapacityConstant = list.getFirst()[0];
-        int knapSackCapacity = knapsackCapacityConstant;
-        int listSize = list.getFirst()[1];
-        // remove the first list item
+        int knapsackCapacity = list.getFirst()[0];
+        int amountOfRowsToIterateOver = list.getFirst()[1];
+        int currentValue =0;
+        int currentWeight=0;
         list.removeFirst();
-        for(int[] i : list) {
+        for(int i = 0; i<list.size(); i++)
+        {
+            int value = list.get(i)[0];
+            int weight = list.get(i)[1];
+            if(currentWeight < knapsackCapacity){
+                currentValue += value;
+                currentWeight += weight;
 
-            // we could use i1[1] to get the size of the list but we can also just use list.size to iterate
-            //Iterate over each row, add first entry to capacity int, and add value to totalValue int
-            System.out.println("list items: value: " + i[0] + " weight: " + i[1]);
-            //Stop when capacity is equal to or larger than knapsackCap
-            if(capacity <= knapSackCapacity) {
-                currentValue += i[0];
-                capacity += i[1];
-                knapSackCapacity -= capacity;
-                System.out.println("current capacity: " + capacity + " currentValue: " + currentValue + " and total knapSackCapacity: " + knapSackCapacity);
-                highestValue += currentValue;
-                index ++;
-                savedIndices = index;
-
-                //save the indices where the values were found, together with the total value and the amount of indices
-                // keep iterating until list is done
-            }else {
-                System.out.println("no more space in knapsack: " + knapSackCapacity + " currentValue: " + currentValue);
+            } else if(value > currentValue){
+                currentValue = value;
+                currentWeight = weight;
             }
-            System.out.println("saving highest value" + highestValue + " and indices " + savedIndices);
-            knapSackCapacity = knapsackCapacityConstant;
         }
-
+        System.out.println("value : " + currentValue + " weight: " + currentWeight);
     }
 }
