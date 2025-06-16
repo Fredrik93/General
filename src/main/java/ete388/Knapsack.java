@@ -1,4 +1,4 @@
-package ete388;
+package se.general.projects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class Knapsack {
     public static void main(String[] args) {
+
         int [] i1 =  {5,3};
         int [] i2 =  {1,5};
         int [] i3 =  {10,5};
@@ -33,6 +34,14 @@ public class Knapsack {
         Knapsack k = new Knapsack();
         k.calculateValue(List.of(i1,i2,i3,i4));
 
+//        int [] i1 =  {6,4};
+//        int [] i2 =  {5,4};
+//        int [] i3 =  {4,3};
+//        int [] i4 =  {3,2};
+//        int [] i5 =  {2,1};
+//
+//        Knapsack k = new Knapsack();
+//        k.calculateValue(List.of(i1,i2,i3,i4,i5));
     }
     void calculateValue(List<int []> listOfItems) {
         //we need an arraylist otherwise the List items are immutable
@@ -46,7 +55,8 @@ public class Knapsack {
         {
             int value = list.get(i)[0];
             int weight = list.get(i)[1];
-            if(currentWeight < knapsackCapacity){
+
+            if(currentWeight+weight <= knapsackCapacity){
                 currentValue += value;
                 currentWeight += weight;
 
