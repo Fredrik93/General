@@ -1,6 +1,7 @@
 package se.general.projects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /**
  *
@@ -35,6 +36,7 @@ public class Knapsack {
         List<int[]> list = new ArrayList<>(listOfItems);
         int knapsackCapacity = list.getFirst()[0];
         int amountOfRowsToIterateOver = list.getFirst()[1];
+        int [] indexWhereHighestValueWasFound = new int [amountOfRowsToIterateOver];
         int highestValue =0;
         int amountOfItemsSummed=0;
         int currentValue =0;
@@ -64,12 +66,18 @@ public class Knapsack {
                 amountOfItemsSummed ++;
             }
             if(tempValue > highestValue){
-            highestValue = tempValue;}
+            highestValue = tempValue;
+            // stopped here. saving correct index (2) for testOk() is not working.
+            indexWhereHighestValueWasFound[i] = i;}
             tempValue =0;
+            tempWeight =0;
 
         }
-        System.out.println("weight: " + currentWeight + " value: " + tempValue);
-        System.out.println(amountOfItemsSummed);
+        //just for testing
+        System.out.println("weight: " + currentWeight + " value: " + currentValue);
+        //expected result
+        System.out.println(amountOfItemsSummed + " (found one item)");
+        System.out.println(Arrays.toString(indexWhereHighestValueWasFound) + " (index where value was found)");
         return currentValue;
     }
 }
