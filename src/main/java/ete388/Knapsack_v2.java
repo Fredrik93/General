@@ -26,7 +26,8 @@ import java.util.List;
  */
 public class Knapsack {
     private int itemsFound =0;
-    private int [] indices = {0,0};
+    // Keeps track of which index the value was found at
+    private String indicesTracker;
     public static void main(String[] args) {
 
 
@@ -36,7 +37,7 @@ public class Knapsack {
         List<int[]> list = new ArrayList<>(listOfItems);
         int knapsackCapacity = list.getFirst()[0];
         int amountOfRowsToIterateOver = list.getFirst()[1];
-        int[] indexWhereHighestValueWasFound = new int[amountOfRowsToIterateOver];
+        StringBuilder sbIndicesTracker = new StringBuilder();
         int highestValue = 0;
         int amountOfItemsSummed = 0;
         int currentValue = 0;
@@ -53,6 +54,7 @@ public class Knapsack {
                 currentWeight += weight;
                 amountOfItemsSummed++;
                 tempValue += currentValue;
+                tempWeight += currentWeight;
 
             } else if (weight <= knapsackCapacity) {
                 currentValue = 0;
@@ -66,13 +68,9 @@ public class Knapsack {
             }
             if (tempValue > highestValue) {
                 highestValue = tempValue;
-                // stopped here. saving correct index (2) for testOk() is not working.
-                indexWhereHighestValueWasFound = new int[amountOfItemsSummed];
-                if(indexWhereHighestValueWasFound.length == 1){
-                    indexWhereHighestValueWasFound[0] = i;
-                } else{
-                indexWhereHighestValueWasFound[i-1] = i;}
+                sbIndicesTracker.append(i + " ");
             }
+
             tempValue = 0;
             tempWeight = 0;
 
@@ -81,16 +79,17 @@ public class Knapsack {
         System.out.println("weight: " + currentWeight + " value: " + currentValue);
         //expected result
         itemsFound = amountOfItemsSummed;
-        indices = indexWhereHighestValueWasFound;
+        indicesTracker = sbIndicesTracker.toString();
         System.out.format("found %s item(s) \n", amountOfItemsSummed);
-        System.out.println(Arrays.toString(indexWhereHighestValueWasFound) + " (index where value was found)");
+        System.out.println(indicesTracker.toString() + " (index where value was found)");
         return currentValue;
     }
 
     public int getItemsFound() {
         return itemsFound;
     }
-    public int[] getIndices() {
-        return indices;
+    public String getIndices() {
+
+        return indicesTracker;
     }
 }
