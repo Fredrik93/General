@@ -38,6 +38,7 @@ public class Knapsack {
         int knapsackCapacity = list.getFirst()[0];
         int amountOfRowsToIterateOver = list.getFirst()[1];
         StringBuilder sbIndicesTracker = new StringBuilder();
+        StringBuilder tempIndicesTracker = new StringBuilder();
         int highestValue = 0;
         int amountOfItemsSummed = 0;
         int currentValue = 0;
@@ -55,8 +56,10 @@ public class Knapsack {
                 amountOfItemsSummed++;
                 tempValue += currentValue;
                 tempWeight += currentWeight;
+                tempIndicesTracker.append(i + " ");
 
             } else if (weight <= knapsackCapacity) {
+                tempIndicesTracker = new StringBuilder();
                 currentValue = 0;
                 currentWeight = 0;
                 tempValue += value;
@@ -65,23 +68,26 @@ public class Knapsack {
                 currentValue += tempValue;
                 currentWeight += tempWeight;
                 amountOfItemsSummed++;
+                tempIndicesTracker.append(i + " ");
             }
-            if (tempValue > highestValue) {
+            if (currentValue > highestValue) {
+                sbIndicesTracker = new StringBuilder();
                 highestValue = tempValue;
-                sbIndicesTracker.append(i + " ");
+                sbIndicesTracker = tempIndicesTracker;
             }
 
             tempValue = 0;
             tempWeight = 0;
 
         }
+
         //just for testing
         System.out.println("weight: " + currentWeight + " value: " + currentValue);
         //expected result
         itemsFound = amountOfItemsSummed;
         indicesTracker = sbIndicesTracker.toString();
         System.out.format("found %s item(s) \n", amountOfItemsSummed);
-        System.out.println(indicesTracker.toString() + " (index where value was found)");
+        System.out.println(indicesTracker + " (index where value was found)");
         return currentValue;
     }
 
