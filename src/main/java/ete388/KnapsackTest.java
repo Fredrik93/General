@@ -18,10 +18,10 @@ public class KnapsackTest {
         Knapsack k = new Knapsack();
        int actualValue = k.calculateValue(List.of(i1, i2, i3, i4));
        int itemsFound = k.getItemsFound();
-       int [] indices = k.getIndices();
+       String indices = k.getIndices();
        assertThat(actualValue, is(100));
        assertThat(itemsFound, is(1));
-       assertThat(indices[0], is(2));
+       assertThat(indices, is("2 "));
     }
     @Test
     public void testOk1(){
@@ -36,16 +36,15 @@ public class KnapsackTest {
         int actualValue =  k.calculateValue(List.of(i1,i2,i3,i4,i5));
         assertThat(actualValue, is(9));
         int itemsFound = k.getItemsFound();
-        int [] indices = k.getIndices();
+        String indices = k.getIndices();
         assertThat(itemsFound, is(3));
-        assertThat(indices[0], is(1));
-        assertThat(indices[1], is(2));
-        assertThat(indices[2], is(3));
+        assertThat(indices, is("1 2 3 "));
+
 
     }
     @Test
     public void testOk2(){
-//this almost works as well but it needs to find indices. now shows [0,1,3]
+//this almost works as well but it needs to find indices. should be [0,1,3]
         int [] i1 =  {5,3};
         int [] i2 =  {1,1};
         int [] i3 =  {10,1};
@@ -56,11 +55,10 @@ public class KnapsackTest {
         int actualValue = k.calculateValue(List.of(i1,i2,i3,i4,i5));
         assertThat(actualValue, is(111));
         int itemsFound = k.getItemsFound();
-        int [] indices = k.getIndices();
+        String indices = k.getIndices();
         assertThat(itemsFound, is(3));
-        assertThat(indices[1], is(1));
-        assertThat(indices[2], is(10));
-        assertThat(indices[4], is(100));
+        assertThat(indices, is("0 1 3 "));
+
 
     }
 }
